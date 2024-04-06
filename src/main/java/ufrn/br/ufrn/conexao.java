@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class conexao {
     public static Connection getConnection() throws SQLException, URISyntaxException {
-        String dbUri = "localhost"; // Host do banco de dados
+        String dbUri = "localhost"; // Host do banco de dadosa
         String dbPort = "5433"; // Porta do banco de dados
         String dbName = "projetopw"; // Nome do banco de dados
 
