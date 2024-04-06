@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import ufrn.br.ufrn.usuarioDao;
-import ufrn.br.ufrn.conexao;
 
 @Controller
 public class controllerAut {
@@ -19,10 +17,10 @@ public class controllerAut {
 
     @RequestMapping(value = "logar", method = RequestMethod.POST)
     public void Login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        var login = request.getParameter("login");
+        var email = request.getParameter("login");  // Renomeado para 'email'
         var password = request.getParameter("password");
-        
-        if () {
+
+        if (uDao.VerificarUsuario(email, password)) {  // Passando os parâmetros corretamente
             // Login bem-sucedido
             HttpSession session = request.getSession();
             session.setAttribute("logado", true);
