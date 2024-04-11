@@ -102,6 +102,41 @@ public class produtoDao {
             }
         }
     }
+    public produtos getProduto(int produtoId) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        produtos produto = null;
+
+        try {
+            connection = conexao.getConnection();
+            String sql = "SELECT * FROM produtos WHERE id = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, produtoId);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nome = resultSet.getString("nome");
+                String descricao = resultSet.getString("descricao");
+                float preco = resultSet.getFloat("preco");
+                int estoque = resultSet.getInt("estoque");
+                produto = new produtos(id, nome, descricao, preco, estoque);
+            }
+        } catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return produto;
+    }
 
     // Métodos adicionais, como removerProduto, podem ser atualizados de forma semelhante.
 }

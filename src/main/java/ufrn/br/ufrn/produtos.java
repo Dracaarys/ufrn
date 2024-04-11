@@ -1,26 +1,22 @@
 package ufrn.br.ufrn;
 
 public class produtos {
-    
-    private Integer id;
-    private String nome;
-    private String descricao;
-    private float preco;
-    private int estoque;
-
-    public produtos(){
-
-    }
     public produtos(Integer id, String nome, String descricao, float preco,int estoque){
+        super();
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
     }
-    
+    int id;
+    String nome;
+    String descricao;
+    float preco;
+    int estoque;
+
     // get
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -38,7 +34,7 @@ public class produtos {
 
     public Integer getEstoque(){return estoque;}
 
-    
+
     //set
     public void setId(Integer id) {
         this.id = id;
@@ -57,4 +53,11 @@ public class produtos {
     }
 
     public void setEstoque(int estoque) {this.estoque = estoque;}
+    public void incrementaEstoque() {
+        this.estoque++;
+    }
+    public void diminuiEstoque() {
+        this.estoque--;
+    }
+
 }

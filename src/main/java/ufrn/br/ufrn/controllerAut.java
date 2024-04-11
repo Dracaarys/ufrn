@@ -32,7 +32,7 @@ public class controllerAut {
             // Login de usuário comum bem-sucedido
             HttpSession session = request.getSession();
             session.setAttribute("logado", true);
-            response.sendRedirect("listaProdutos.html");
+            response.sendRedirect("doListar");
         } else {
             // Login falhou para ambos os tipos de usuário
             response.sendRedirect("index.html?msg=Login falhou");

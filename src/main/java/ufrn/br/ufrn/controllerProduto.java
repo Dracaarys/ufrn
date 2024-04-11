@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,8 +39,6 @@ public class controllerProduto {
     @RequestMapping(method = RequestMethod.GET, value = "/doListar")
     public void listarMercadoria(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-            /*Tarefa t = (Tarefa) request.getAttribute("tarefa");
-            System.out.println(t.toString());*/
 
         var dao = new produtoDao();
         var writer = response.getWriter();
@@ -56,9 +55,10 @@ public class controllerProduto {
             writer.println("<p>"+"Descrição:" +t1.getDescricao() + "</p>");
             writer.println("<p>"+"Preço:" + t1.getPreco() + "</p> ");
             writer.println("<p>"+"Estoque:"+ t1.getEstoque() + "</p> ");
-            writer.println("<a href='doEditarPage?id="+t1.getId()+"'>Adicionar no carrinho</a>");
+            writer.println("<td><a href='/acaoCarrinho?comando=add&id=" + t1.getId() + "'>Adicionar no carrinho</a></td>");
         }
 
+        writer.println("<a href=\"/logout\">Logout</a>");
         writer.println("</html>" +
                 "</body>");
     }
