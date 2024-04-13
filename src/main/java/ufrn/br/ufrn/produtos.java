@@ -1,7 +1,7 @@
 package ufrn.br.ufrn;
 
 public class produtos {
-    public produtos(Integer id, String nome, String descricao, float preco,int estoque){
+    public produtos(Integer id, String nome, String descricao, float preco,Integer estoque){
         super();
         this.id = id;
         this.nome = nome;
@@ -9,14 +9,14 @@ public class produtos {
         this.preco = preco;
         this.estoque = estoque;
     }
-    int id;
+    Integer id;
     String nome;
     String descricao;
     float preco;
-    int estoque;
+    Integer estoque;
 
     // get
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -15,7 +15,7 @@ public class usuarioDao {
         ResultSet resultSet = null;
     
         try {
-            connection = conexao.getConnection(); 
+            connection = conexao.getConnection();
             String sql = "SELECT * FROM clientes WHERE email = ? AND senha = ?";
             statement = connection.prepareStatement(sql);
             statement.setString(1, email);

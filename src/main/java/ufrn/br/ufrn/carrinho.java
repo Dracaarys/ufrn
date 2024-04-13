@@ -3,9 +3,9 @@ package ufrn.br.ufrn;
 import java.util.ArrayList;
 
 public class carrinho {
-    private ArrayList<produtos> produtos;
+    private ArrayList<ufrn.br.ufrn.produtos> produtos;
 
-    public carrinho(ArrayList<produtos> produtos) {
+    public carrinho(ArrayList<ufrn.br.ufrn.produtos> produtos) {
         this.produtos = produtos;
     }
 

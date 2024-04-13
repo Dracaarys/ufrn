@@ -1,8 +1,5 @@
 package ufrn.br.ufrn;
 
-import ufrn.br.ufrn.conexao;
-import ufrn.br.ufrn.produtos;
-
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
