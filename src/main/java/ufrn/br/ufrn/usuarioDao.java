@@ -37,5 +37,31 @@ public class usuarioDao {
             }
         }
     }
+    public boolean cadastrarUsuario(String nome, String email, String senha) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = conexao.getConnection();
+            String sql = "INSERT INTO clientes (nome, email, senha) VALUES (?, ?, ?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, nome);
+            statement.setString(2, email);
+            statement.setString(3, senha);
+            int rowsInserted = statement.executeUpdate();
+
+            return rowsInserted > 0;
+        } catch (SQLException | URISyntaxException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     
 }

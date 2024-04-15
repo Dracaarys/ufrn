@@ -73,20 +73,16 @@ public class produtoDao {
         return produtos;
     }
 
-    // Método para atualizar um produto no banco de dados
+
     public void atualizarProduto(produtos produto) {
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
             connection = conexao.getConnection();
-            String sql = "UPDATE produtos SET nome = ?, descricao = ?, preco = ?, estoque = ? WHERE id = ?";
+            String sql = "UPDATE produtos SET estoque = estoque - 1 WHERE id = ?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, produto.getNome());
-            statement.setString(2, produto.getDescricao());
-            statement.setFloat(3, produto.getPreco());
-            statement.setInt(4, produto.getEstoque());
-            statement.setInt(5, produto.getId());
+            statement.setInt(1, produto.getId());
             statement.executeUpdate();
         } catch (SQLException | URISyntaxException e) {
             e.printStackTrace();

@@ -52,10 +52,44 @@ public class carrinhoController {
 
         // Exibe o valor total do carrinho
         writer.println("<p>Total do Carrinho: R$ " + totalCarrinho + "</p>");
+        writer.println("<a href=\"/FinalizarCompra\">Finalizar Compra</a>");
 
         writer.println("<a href=\"/doListar\">voltar</a>");
         writer.println("</body></html>");
     }
+    @RequestMapping(method = RequestMethod.GET, value = "/FinalizarCompra")
+    public void finalizarCompra(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Integer> carrinho = getCarrinhoFromCookie(request);
+
+
+        for (Integer id : carrinho) {
+            produtos produto = produtoDao.getProduto(id);
+            if (produto != null) {
+
+                produto.setEstoque(produto.getEstoque() - 1);
+
+                produtoDao.atualizarProduto(produto);
+            }
+        }
+
+        response.setContentType("text/html");
+        PrintWriter writer = response.getWriter();
+        writer.println("<html><body>");
+        writer.println("<p>Compra confirmada!</p>");
+
+        Cookie cookie = new Cookie("carrinho", "");
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+// Adicione um botão para redirecionar para a página doListar
+        writer.println("<form action=\"/doListar\" method=\"get\">");
+        writer.println("<button type=\"submit\">Voltar para listar</button>");
+        writer.println("</form>");
+
+        writer.println("</body></html>");
+    }
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/acaoCarrinho")
     public String acaoCarrinho(HttpServletRequest request, HttpServletResponse response) {

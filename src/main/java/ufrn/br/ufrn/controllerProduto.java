@@ -2,6 +2,7 @@ package ufrn.br.ufrn;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,18 +60,38 @@ public class controllerProduto {
         var listarMercadoria = dao.listarTodosProdutos();
         response.setContentType("text/HTML");
 
+        HttpSession session = request.getSession();
+        Boolean logado = (Boolean) session.getAttribute("logado");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+
+        if (logado == null || !logado) {
+            response.sendRedirect("index.html?msg=Você não tem permissão para acessar esta página");
+            return;
+        }
 
         for (var t1 : listarMercadoria){
             writer.println("<p>"+"nome:" +t1.getNome() + "</p>");
             writer.println("<p>"+"Descrição:" +t1.getDescricao() + "</p>");
             writer.println("<p>"+"Preço:" + t1.getPreco() + "</p> ");
             writer.println("<p>"+"Estoque:"+ t1.getEstoque() + "</p> ");
-            writer.println("<td><a href='/acaoCarrinho?comando=add&id=" + t1.getId() + "'>Adicionar no carrinho</a></td>");
+
+            if (isAdmin == null || !isAdmin) {
+                if (t1.getEstoque() < 1) {
+                    writer.println("<td>Produto Indisponível</td>");
+                } else {
+                    writer.println("<td><a href='/acaoCarrinho?comando=add&id=" + t1.getId() + "'>Adicionar no carrinho</a></td>");
+                }
+            }
+
+
         }
-        writer.println("<a href=\"/doListarCarrinho\">ver carrinho</a>");
+        if (isAdmin == null || !isAdmin){
+            writer.println("<a href=\"/doListarCarrinho\">ver carrinho</a>");
+        }
         writer.println("<a href=\"/logout\">Logout</a>");
         writer.println("</html>" +
                 "</body>");
     }
+
 
 }

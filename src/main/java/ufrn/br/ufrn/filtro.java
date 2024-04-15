@@ -16,7 +16,7 @@ public class filtro implements Filter{
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
 
         if (session == null || session.getAttribute("logado") == null) {
             response.sendRedirect("index.html?msg=Você precisa logar antes");
