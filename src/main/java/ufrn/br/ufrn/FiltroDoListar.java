@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter("/cadastro.html")
-public class filtro implements Filter{
+@WebFilter("/doListar")
+public class FiltroDoListar implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
@@ -18,19 +18,13 @@ public class filtro implements Filter{
 
         HttpSession session = request.getSession();
 
+        //Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+
         if (session == null || session.getAttribute("logado") == null) {
             response.sendRedirect("index.html?msg=Você precisa logar antes");
             return;
         }
 
-        Boolean logado = (Boolean) session.getAttribute("logado");
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
-
-        // Se não estiver logado ou não for um admin, redirecionar para a página inicial
-        if (!logado || isAdmin == null || !isAdmin) {
-            response.sendRedirect("index.html?msg=Você não tem permissão para acessar esta página");
-            return;
-        }
 
         filterChain.doFilter(servletRequest, servletResponse);
     }
@@ -40,4 +34,3 @@ public class filtro implements Filter{
         Filter.super.destroy();
     }
 }
-

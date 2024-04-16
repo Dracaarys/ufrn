@@ -64,10 +64,7 @@ public class controllerProduto {
         Boolean logado = (Boolean) session.getAttribute("logado");
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
 
-        if (logado == null || !logado) {
-            response.sendRedirect("index.html?msg=Você não tem permissão para acessar esta página");
-            return;
-        }
+
 
         for (var t1 : listarMercadoria){
             writer.println("<p>"+"nome:" +t1.getNome() + "</p>");
