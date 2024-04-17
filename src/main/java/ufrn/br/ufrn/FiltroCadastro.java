@@ -22,7 +22,7 @@ public class FiltroCadastro implements Filter {
         Boolean logado = (Boolean) session.getAttribute("logado");
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
 
-        // Se não estiver logado ou não for um admin, redirecionar para a página inicial
+
         if (logado == null || !logado || isAdmin == null || !isAdmin) {
             response.sendRedirect("index.html?msg=Você não tem permissão para acessar esta página");
             return;
